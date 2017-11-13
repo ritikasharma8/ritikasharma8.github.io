@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en" ng-app='myApp'>
+  <title>Bonjour</title>
+   <head>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+      <script src="app/app.js"></script>
+      <!-- Angular Material Library -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.5/angular-material.min.css">
+      <link rel="stylesheet" href="https://gitcdn.link/repo/angular/bower-material/master/angular-material.css">
+      <link rel="stylesheet" href="icon\css\material-design-iconic-font.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.5/angular-material.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-animate.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-aria.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
+      <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+      <script src="https://cdn.bootcss.com/angular-leaflet-directive/0.9.1/angular-leaflet-directive_dev_mapped.js"></script>
+      <script src="http://tombatossals.github.io/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
+   </head>
+   <style>
+      .buttondemoBasicUsage section {
+      background: #f7f7f7;
+      border-radius: 3px;
+      text-align: center;
+      margin: 1em;
+      position: relative !important;
+      padding-bottom: 10px; }
+      .buttondemoBasicUsage md-content {
+      margin-right: 7px; }
+      .buttondemoBasicUsage section .md-button {
+      margin-top: 16px;
+      margin-bottom: 16px; }
+      .buttondemoBasicUsage .label {
+      position: absolute;
+      bottom: 5px;
+      left: 7px;
+      font-size: 14px;
+      opacity: 0.54; 
+      }
+      .menu-icon{
+        font-size:25px;
+      }
+      .left-nav-toolbar{
+        padding: 20px;  
+      float: left;
+      }
+      .left-nav-toolsymbol{
+        padding: 20px;  
+      float: right;
+      cursor: pointer;
+      }
+      .label-size-search{
+        font-size:12px;
+      }
+   </style>
+   <body ng-controller="myCtrl">
+      <!-- SideNav -->
+      <div ng-controller="AppCtrl" layout="column" style="height:500px;" ng-cloak>
+         <md-toolbar class="md-accent">
+            <div class="md-toolbar-tools">
+               <md-button
+                  class="md-icon-button"
+                  aria-label="Settings"
+                  ng-click="toggleLeft()">
+                  <md-icon class="menu-icon"><i class="zmdi zmdi-menu"></i></md-icon>
+               </md-button>
+               <h2>Toolbar</h2>
+               <span flex></span>
+              
+               <div>
+                 <div ng-hide="search"> 
+                   <md-input-container>
+                    <label class="label-size-search">Search</label>
+                    <input ng-model="user.title">
+                  </md-input-container>
+            </div>
+                 <i ng-click="search()"class="zmdi zmdi-search"></i>
+                  <md-button ng-click="toggleLeft()"
+                     ng-hide="isOpenLeft()"
+                     class="md-primary">
+                     Toggle Left
+                  </md-button>
+               </div>
+            </div>
+         </md-toolbar>
+         <!-- Tabing -->
+         <!-- Tabing -->
+         <section layout="column">
+            <md-content flex layout-padding>
+               <div>
+                  <div>{{helloMessage}}</div>
+                  <!-- <div >SHOW TEXT</div> -->
+                  <div ng-show="myvar">my text</div>
+         
+                <div layout-gt-sm="row">
+                  <md-input-container  class="md-block" flex-gt-sm>
+                     <label>First Name</label>
+                     <input ng-model="user.firstname" autocomplete="on">
+                  </md-input-container>
+                  <div flex="5" hide-xs hide-sm>
+                    <!-- Spacer //-->
+                  </div>
+                  <md-input-container  class="md-block" flex-gt-sm>
+                     <label>Last Name</label>
+                     <input ng-model="user.secondname"> 
+                  </md-input-container>
+                  <div flex="5" hide-xs hide-sm>
+                    <!-- Spacer //-->
+                  </div>
+                  <md-input-container  class="md-block" flex-gt-sm>
+                     <label>Residency</label>
+                     <input ng-model="user.residency">
+                  </md-input-container>
+
+                </div>
+                <md-switch ng-model="data.cb1" aria-label="Switch 1">
+                    Switch 1: {{ data.cb1 }}
+                  </md-switch>
+              
+                  <!-- <div>
+                     <md-button ng-click="toggleLeft()"
+                       class="md-primary" hide-gt-md>
+                       Toggle left
+                     </md-button>
+                     </div>
+                     -->
+                     <div ui-view></div>
+               </div>
+               <div flex></div>
+            </md-content>
+            
+            <md-sidenav class="md-sidenav-left md-whiteframe-4dp" md-component-id="left">
+               <md-toolbar class="md-theme-light">
+                  <div>  <span class="left-nav-toolbar">Sidenav Left</span>
+                 <span class="left-nav-toolsymbol"> <i ng-click="close()" class="zmdi zmdi-close"></span></i>
+                  
+                  </div>
+               </md-toolbar>
+               <md-content ng-controller="RightCtrl" layout-padding>
+                  <form>
+                     <md-input-container>
+                        <label for="testInput">Test input</label>
+                        <input type="text" id="testInput"
+                           ng-model="testinput" md-autofocus>
+                     </md-input-container>
+                  </form>
+                  <md-button  ng-click="showvar()">SHOW TEXT</md-button>
+                  
+                  <md-button ui-sref="new"> to new page</md-button>
+                  <md-button ng-click="close()" class="md-primary">
+                     Close Sidenav Right
+                  </md-button>
+               </md-content>
+            </md-sidenav>
+         </section>
+      </div>
+     
+      <!-- SideNav -->
+   </body>
+</html>
